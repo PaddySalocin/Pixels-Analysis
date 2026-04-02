@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixels d20 Roll Analysis</title>
+<script>
+(function(){
+var icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAL1ElEQVR4nO2de3BU1R3Hz83u5rWbTbIgSSAkEMIjEEGKdAZKBWtF61RQKFgdW1oLIzBotZbp4FDGaafO4LQyChILMzqOHSltZdo67VQcZ1pKcQwi4iSAwSAJkfAIeYdNSHZv/zjOcrnn3N2bPbt7Xr/Pf9y73tzH535/v3Pu3dUoLC5BAJAsWbx3AJAbEAhgAgQCmACBACZAIIAJEAhgAgQCmACBACZAIIAJEAhgAgQCmACBACZAIIAJEAhgAgQCmACBACZAIIAJEAhgAgQCmACBACZAIIAJEAhgAgQCmACBACZAoAQcrJt/sG4+770QFwO+meoE6c3SDUe57InIQALRoaYORBEJJJAdqyVLNxylSgNRFAMS6Aa2didmCakLNEYxvLx3QAhsNpDG4CW2j+F/ap5GkED2mhVHCOpazaNI6wSiFqyEkGmkcxRpmkBO7Y57oDHCaJdACdsd9zg1RlpFkV4CMaYOFc0rmi4CpUMdK+SMkSYaqS9QCmtWfPQc6qssUMbUIf+KPo2RsgKlu2bFR5/GSEGB+KpjRYfGSKl5IPbZnZSj/OS1IgnEpd1xj8IVTYUEcv8wiy9KTl7LnUCiFayEqDfUlzWBBGx33KNSYyRfAgne7rhHjcZIsgSSpd1xj+yNkTQJJG/BSojUk9cSCKRMzYqPpBVNaIE0UceKdJPX4gqkcM2Kj1xDfREF0lYdK7I0RmIJpGHNio/4jZEoAoE6cRC5MRJiHki92Z2UI+zkNecEgnZnVAhY0bglkNQPs/gi1OQ1hwSCdocdcYb6mU4gaHdSiAiNUeYSCApWmuDbGGUogcCedMPrrAoxjAdSAheHMi0QnhMTYQJDMfBZzbxDHEZh1poN5SwlcHxGxm0iMaYROMQC9/uQ80x07CkPaDRaBDlv/B+mQkUbLUKdK/4CYUAjl4hW9EURCAONURzEvLvEEggDjZENkc+GiAIhqGgWBM9jQQXCaK6RFAcutEAYDRsjKdTBSCAQRpPGSLpjlEYgpEFFkzFlZRIIo6RG8h6OfAJhlGmM5FUHI6tAGNkbIwVuALkFQtJWNOl22AnpBcJIVNGUUQejiEAYwSuayPuWNEoJhASuaFKkYxKoJhBGKI0E2Y00oaZAGO6NkdrqYFQWCMOrMVK1ZtlQXyCU8YqmQ/DEUFyg/FzPrdUFNVX+itK8lvZwYcCLr25P/0jfwMi5C+Gm1oHDx7vaLg2OdsuGgWomBxbMKbq1uiAU9BUHfdGomZfrQQi98c6XH5zoTvmxiImaAoWCvjvmhRbPC9VM9mdlGeQHCgPewoC3vCR30dzix5aXf3qmr+5Prc1t11xuv7Y6sOmhyqryfOraNfdPWHP/hOOne1/Z39p6MZz8YciAml9tfnbtlI2rK2ZNCVDtIZk9tWDXlpkr7ipx8+EfLy9/8ZkaJ3tizJ0RfHXrrHsWjHWzTXlRU6Ak8GQZ679X8cCdCRxat2Liw/eWudym12P87AeT7/3GLcx7Jy4g0E2sfbB8/C05Tmvv+Fpo1d2lo9qgYaCfPlI5JVFcyYuaPZCVC1eG/vdJ10cne9ouDXb1DefneGomB1Z+u+S26UHyw9m+rBV3le76Ywu5yp/n2bi6glx+7kJ474Hzjc39Xo8xd0bw8ZUTxxZnWz/gyTKefnTSE9tPmmaqjkkgVBboRFPfX967WN/Ybb1yvSMjHzZ01zd2P76ygtr0LFs8jirQ8iUloUKfbeHlzutP//bUQDiC//mfY51NLQO/31qbm3NTtE+r9C+6rfi/x7sYj0hA1Cxhre3hbXVnNu84/WFDN/W+N02058B5p9E7+QM0hoF+tGwC+ck3//FlzB5Me8fQO4cuk5+8Z6GanZCaCfTyPkqE2IhGzUMfdz7ynfHkqh/+8tOLHUMxh5x+zSgaNQ/TQuXQsU6yVbp9ZrCowNfdN5xwx+RCzQRySWcP/XJevx5Flp+wXLrh6Gt/bSM/1nZ50BY/mOa2ayMj9tzLyjJmVvlZ91g81Ewgl4wpyiYX9ocjXX3DyBI8TgnU2k6vgCMR80LHYEVpnm159UT/EeVmqLVOoAWzi8iFRxt63t391c/FxRKI2i119TrWI+qqKRMVHMzrm0Dfmj9m0nh7SCCE7pwfIp+DFgXt4y+EUHf/iNPGe2irCgMKnm1NE6iyLG/Tw5Xk8oMfdJD2GAby53rIDw8PR522f32YMvbz51E2Ijs6ClRZlvfCU9MDxOVsbrv2yn7K8C03x2PQHqk99kC5058YHqG4paRACoZqfGZPLXhufXUg337g7R1DW3c1hYccQ4Vkz9vnnV79cfUIVwn0EmjJ7aHNa6p8Xvv1vXBlaPOO01cdRvWDQxHTRGQIeb2G01uzPh8l2qljftnRSKBVd5eufXAi6cHZtmvP7mzqdB5SmSYaGIyQJS/b+5Ul5FuzsVVWQCBZMQy0cXXl8iXjyFWffNb73KufXxtMcGl7+oZJgQoLbpw921uz1lU3NuI8apMX9QXK8WVt+UnVwjnF5Kr366/+7s0vyFljkrNt4Qnjcm0LxxDPVqn/Gy/LRty+8SgRio/CCgPe7U9Np9qz71/t218/68YehNCZ1gFyITnXjPnuk8ciUcpmqRuRHZUTqGxszvNPTCOTIxI1d+5r+efhK+431dDcRy6cMC63wO/tG7AXpqkV+R7iVdpo1Dz1hYICKZtA0yf53/j1bNKe8FB02+4zo7IHIdTY3N/eMWRbaBjom3Mp2bZ4Xohc+NHJ3jiPPuRFTYEO1s3f+YuZ5PLO3uFnXjx1tLFntBs0TfTukQ5y+aP3jbdNKZWX5N63iPLqz9drC0f7R6VAtRKGG9iW9nBlGaVBCQV9u7fMSriR7a+ffb/+qm3h3/99admScaGbH4qNLc7e8fMZe94+39Dc7/UY82qC61dVZBOTQE0tA0++cErJLxwqJVBsQm/vttqUb7w/HNm9v3Xruim25ZVleb/ZNC3OfxiJmjv+cC4aNYX6yYdUoYhAmbkqhz7u/PN7/lF9McM00ctvtVi/sqiYRtILlOErsffA+UjE/L67r4aNRMyX3jpHbZ64/3JIqpBbIC4X4LW/tdU39mx6qCL+l1PdfLVZ8J9Uc4OsAvE97w2f9214vnFmVWDhnOLa6kAo6CsK+qJR1NU7fLX7+vHPeo+c6HY57yx7RZNPIDfnet2vGtK9G6aJGpv7G5v7U7I1eSuaTALJe5u6RMaKJo1AMt6dSSBdRZNAIInOZqqQSCOhBZLiDKYPKRojQQXSXB0rgjdGIgok+D2XeUSuaGIJJOY5EgQxK5ooAoE6LhGtovEXSKjTIQVCVTTOAokWyBIhiEbcBOJ+5GrAvTHiIBCok3I4NkaZFghqVpqI/5W09KHmS/V6knl7UMYEsqYOl+NUHl5nNXMlzJqx0AalEFKdTJ7YTJcwWxRBGrFAPYEZvi05jMJs7R6kURJQbzwu55BbEx37DVQMRJF7qKmj0TyQFWiMRgX3gkUixDAeGqOEiNDuUOH/MBUDjVEcxFQHI4pAGFIjcc4UF0RWByOWQBhojJBI46z4iCgQJvaAEGmmkSzqYMQVCGnZGIlfs2wILRBGk8ZIOnUwEgiEUbgxkqtm2RBiHsg96s0YCTWtnATSJFAMZRojSWuWDckSKIbUj9KEnVZOAvkSyIp0jZHU7Q4VWRPIiiyNkeztDhW5EyiG4I2RMgWLRIUEiiFgY6RSu0NFkQSyIk5jpLY6GAUFwvB9lKaDOhhlBUKcGiP1xlnxUVkgTMYepemmDkZ9gTDpboz0qVk2dBEIk47GSFt1MHoJhFLaGOlZs2woNQ/kHvYZIyWnlZNAuwSyklxjpHnNsqFpAllx/yhN+WnlJNA6gWIkbIyg3XHCKCwu4b0PYmF1xTpqswLqxACB6DgVMlDHBvRAdKiigD0kkEAJEO3VItEAgQAmoIQBTIBAABMgEMAECAQwAQIBTIBAABMgEMAECAQwAQIBTIBAABMgEMAECAQwAQIBTIBAABMgEMAECAQwAQIBTIBAABMgEMAECAQwAQIBTIBAABMgEMDE/wGNru2Gg/1+GQAAAABJRU5ErkJggg==";
+var m={name:"Pixels d20 Roll Analysis",short_name:"Pixels Analysis",id:"gf-pixels",start_url:location.href,display:"standalone",background_color:"#0f1117",theme_color:"#c9a84c",icons:[{src:icon,sizes:"192x192",type:"image/png"}]};
+var b=new Blob([JSON.stringify(m)],{type:"application/json"});
+var l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(b);
+document.head.appendChild(l);
+})();
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg-dark: #0f1117;
+  --bg-mid: #181b24;
+  --bg-card: #1e2230;
+  --bg-hover: #252a3a;
+  --border-dark: #2a2e3d;
+  --border-mid: #363b4e;
+  --text-bright: #e8e6e1;
+  --text-mid: #a8a5a0;
+  --text-dim: #6b6862;
+  --gold: #c9a84c;
+  --gold-dim: rgba(201,168,76,0.15);
+  --green: #4caf50;
+  --green-dim: rgba(76,175,80,0.15);
+  --red: #e74c3c;
+  --red-dim: rgba(231,76,60,0.15);
+  --blue: #5aa0ff;
+  --blue-dim: rgba(90,160,255,0.15);
+  --purple: #b39ddb;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-bright);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(201,168,76,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(90,160,255,0.02) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-dark);
+}
+header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+header p { font-size: 0.8rem; color: var(--text-dim); font-weight: 300; }
+
+/* Connection bar */
+.connect-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.connect-bar .status {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.connect-bar .status.connected { color: var(--green); }
+.connect-bar .status.error { color: var(--red); }
+.connect-bar .die-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+}
+.connect-bar .batt {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--border-mid);
+  border-radius: 6px;
+  background: var(--bg-mid);
+  color: var(--text-bright);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn:hover { background: var(--bg-hover); border-color: var(--gold); }
+.btn-gold { background: var(--gold); color: var(--bg-dark); border-color: var(--gold); }
+.btn-gold:hover { background: #d4b45a; }
+.btn-red { background: var(--red); color: white; border-color: var(--red); }
+.btn-red:hover { background: #c0392b; }
+.btn-sm { font-size: 0.65rem; padding: 5px 10px; }
+
+/* Method selector */
+.method-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.method-bar label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+.method-btn {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid var(--border-mid);
+  border-radius: 20px;
+  background: var(--bg-card);
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.method-btn:hover { border-color: var(--gold); color: var(--text-bright); }
+.method-btn.active {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Stats strip */
+.stats-strip {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.stat-box {
+  flex: 1;
+  min-width: 120px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: center;
+}
+.stat-box .stat-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.stat-box .stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+.stat-box .stat-value.gold { color: var(--gold); }
+.stat-box .stat-value.green { color: var(--green); }
+.stat-box .stat-value.red { color: var(--red); }
+
+/* Last roll flash */
+.last-roll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--bg-mid);
+  border: 2px solid var(--border-mid);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  transition: all 0.2s;
+}
+.last-roll.flash {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(201,168,76,0.3);
+}
+
+/* Histogram */
+.histogram {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.histogram h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.histogram-grid {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 220px;
+  padding-bottom: 28px;
+  position: relative;
+}
+.histogram-grid::before {
+  content: '';
+  position: absolute;
+  bottom: 27px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--border-dark);
+}
+/* Expected line */
+.histogram-grid .expected-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  border-top: 1px dashed var(--gold);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.histogram-grid .expected-label {
+  position: absolute;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: var(--gold);
+  opacity: 0.6;
+  transform: translateY(-12px);
+}
+.hist-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hist-bar-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.hist-bar {
+  width: 70%;
+  max-width: 36px;
+  min-height: 0;
+  background: linear-gradient(to top, var(--blue), rgba(90,160,255,0.6));
+  border-radius: 3px 3px 0 0;
+  transition: height 0.3s ease;
+  position: relative;
+}
+.hist-bar.over { background: linear-gradient(to top, var(--green), rgba(76,175,80,0.6)); }
+.hist-bar.under { background: linear-gradient(to top, var(--red), rgba(231,76,60,0.6)); }
+.hist-bar .bar-count {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  white-space: nowrap;
+}
+.hist-face {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-top: 6px;
+}
+
+/* Analysis panel */
+.analysis {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.analysis h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+.verdict {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.verdict.fair { background: var(--green-dim); color: var(--green); border: 1px solid rgba(76,175,80,0.3); }
+.verdict.suspect { background: rgba(255,193,7,0.12); color: #ffc107; border: 1px solid rgba(255,193,7,0.3); }
+.verdict.biased { background: var(--red-dim); color: var(--red); border: 1px solid rgba(231,76,60,0.3); }
+.analysis-detail {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* Method breakdown table */
+.method-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  margin-top: 12px;
+}
+.method-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.55rem;
+}
+.method-table td {
+  padding: 6px 8px;
+  color: var(--text-mid);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+/* Roll log */
+.roll-log {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.roll-log h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.log-entries {
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+.log-entries::-webkit-scrollbar { width: 4px; }
+.log-entries::-webkit-scrollbar-track { background: var(--bg-dark); }
+.log-entries::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+.log-entry { display: flex; gap: 12px; }
+.log-entry .log-num { color: var(--text-dim); min-width: 30px; text-align: right; }
+.log-entry .log-face { color: var(--gold); font-weight: 600; min-width: 20px; }
+.log-entry .log-method { color: var(--text-dim); }
+.log-entry .log-time { color: var(--text-dim); opacity: 0.5; }
+
+/* Action bar */
+.action-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  padding-top: 16px;
+  border-top: 1px solid var(--border-dark);
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Pixels d20 Roll Analysis</h1>
+    <p>Connect your Pixels die, select a rolling method, and start rolling. Analysis updates live.</p>
+  </header>
+
+  <div class="connect-bar">
+    <button class="btn btn-gold" id="connectBtn" onclick="connectDie()">🎲 Connect Pixels Die</button>
+    <span class="status" id="status">Not connected</span>
+    <span class="die-name" id="dieName"></span>
+    <span class="batt" id="dieBatt"></span>
+    <div style="flex:1"></div>
+    <div class="last-roll" id="lastRoll">—</div>
+  </div>
+
+  <div class="method-bar">
+    <label>Method:</label>
+    <button class="method-btn active" data-method="tower" onclick="setMethod(this)">🏗 Dice Tower</button>
+    <button class="method-btn" data-method="drop" onclick="setMethod(this)">⬇ Pickup & Drop</button>
+    <button class="method-btn" data-method="hand" onclick="setMethod(this)">✋ Shake & Hand Roll</button>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-box">
+      <div class="stat-label">Total Rolls</div>
+      <div class="stat-value gold" id="totalRolls">0</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Mean</div>
+      <div class="stat-value" id="meanValue">—</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Expected Mean</div>
+      <div class="stat-value" style="color:var(--text-dim)">10.50</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Std Dev</div>
+      <div class="stat-value" id="stdDev">—</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Most Common</div>
+      <div class="stat-value" id="modeValue">—</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Least Common</div>
+      <div class="stat-value" id="leastValue">—</div>
+    </div>
+  </div>
+
+  <div class="histogram">
+    <h3>Face Distribution <span id="histFilterLabel" style="color:var(--gold);text-transform:none;letter-spacing:0;font-weight:400;margin-left:8px">(all methods)</span></h3>
+    <div class="histogram-grid" id="histogramGrid"></div>
+  </div>
+
+  <div class="analysis" id="analysisPanel">
+    <h3>Chi-Square Analysis</h3>
+    <div id="analysisContent" style="text-align:center;color:var(--text-dim);font-size:0.75rem;padding:20px">
+      Roll at least 20 times to begin analysis.
+    </div>
+  </div>
+
+  <div class="analysis">
+    <h3>Per-Method Breakdown</h3>
+    <div id="methodBreakdown" style="text-align:center;color:var(--text-dim);font-size:0.75rem;padding:10px">
+      No rolls yet.
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn" onclick="filterHist('all')">Show All</button>
+    <button class="btn" onclick="filterHist('tower')">Tower Only</button>
+    <button class="btn" onclick="filterHist('drop')">Drop Only</button>
+    <button class="btn" onclick="filterHist('hand')">Hand Only</button>
+    <div style="flex:1"></div>
+    <button class="btn" onclick="exportCSV()">📥 Export CSV</button>
+    <button class="btn btn-red btn-sm" onclick="clearAll()">Clear All Data</button>
+  </div>
+
+  <div class="roll-log">
+    <h3>
+      Roll Log
+      <span id="logCount" style="font-weight:400;font-size:0.6rem;color:var(--text-dim)"></span>
+    </h3>
+    <div class="log-entries" id="logEntries">
+      <div style="text-align:center;color:var(--text-dim);padding:20px;font-size:0.7rem">Waiting for rolls…</div>
+    </div>
+  </div>
+
+  <footer>
+    Pixels d20 Roll Analysis Tool — built for God's Fortune
+  </footer>
+</div>
+
+<script>
+// ===== STATE =====
+let pixelModule = null;
+let pixelDie = null;
+let currentMethod = 'tower';
+let rolls = JSON.parse(localStorage.getItem('px_rolls')||'[]'); // [{face, method, timestamp}]
+function saveRolls(){localStorage.setItem('px_rolls',JSON.stringify(rolls));}
+let histFilter = 'all';
+
+const METHOD_LABELS = { tower: 'Dice Tower', drop: 'Pickup & Drop', hand: 'Shake & Hand Roll' };
+
+// ===== PIXELS BLUETOOTH =====
+async function connectDie() {
+  try {
+    if (!pixelModule) {
+      setStatus('Loading library…');
+      pixelModule = await import('https://cdn.jsdelivr.net/npm/@systemic-games/pixels-web-connect@1.3.1/+esm');
+    }
+    setStatus('Scanning… (pick your die)');
+    pixelDie = await pixelModule.requestPixel();
+    setStatus('Connecting…');
+    await pixelModule.repeatConnect(pixelDie);
+
+    const name = pixelDie.name || 'Pixel Die';
+    document.getElementById('dieName').textContent = name;
+    document.getElementById('dieBatt').textContent = pixelDie.batteryLevel != null ? '🔋 ' + pixelDie.batteryLevel + '%' : '';
+    setStatus('Connected', 'connected');
+
+    const btn = document.getElementById('connectBtn');
+    btn.textContent = '✕ Disconnect';
+    btn.className = 'btn btn-red';
+    btn.onclick = disconnectDie;
+
+    pixelDie.addEventListener('roll', onRoll);
+    pixelDie.addEventListener('status', (s) => {
+      if (s === 'disconnected' || s === 'disconnecting') {
+        setStatus('Disconnected', 'error');
+        resetConnectBtn();
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    if (e.name === 'NotFoundError' || e.message?.includes('cancelled')) {
+      setStatus('Cancelled');
+    } else {
+      setStatus('Error: ' + e.message, 'error');
+    }
+  }
+}
+
+async function disconnectDie() {
+  try {
+    if (pixelDie) {
+      pixelDie.removeEventListener('roll', onRoll);
+      await pixelDie.disconnect();
+    }
+  } catch(e) {}
+  pixelDie = null;
+  setStatus('Not connected');
+  document.getElementById('dieName').textContent = '';
+  document.getElementById('dieBatt').textContent = '';
+  resetConnectBtn();
+}
+
+function resetConnectBtn() {
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = '🎲 Connect Pixels Die';
+  btn.className = 'btn btn-gold';
+  btn.onclick = connectDie;
+}
+
+function setStatus(text, cls) {
+  const el = document.getElementById('status');
+  el.textContent = text;
+  el.className = 'status' + (cls ? ' ' + cls : '');
+}
+
+// ===== ROLL HANDLING =====
+function onRoll(face) {
+  const faceVal = (typeof face === 'object' && face !== null) ? (face.face || face.value || face) : face;
+  rolls.push({ face: faceVal, method: currentMethod, timestamp: new Date() });
+  saveRolls();
+
+  // Flash last roll
+  const lr = document.getElementById('lastRoll');
+  lr.textContent = faceVal;
+  lr.classList.add('flash');
+  setTimeout(() => lr.classList.remove('flash'), 350);
+
+  updateAll();
+}
+
+function setMethod(btn) {
+  document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMethod = btn.dataset.method;
+}
+
+function filterHist(method) {
+  histFilter = method;
+  const label = method === 'all' ? '(all methods)' : '(' + METHOD_LABELS[method] + ' only)';
+  document.getElementById('histFilterLabel').textContent = label;
+  updateAll();
+}
+
+// ===== STATISTICS =====
+function getCounts(rollSet) {
+  const counts = {};
+  for (let i = 1; i <= 20; i++) counts[i] = 0;
+  rollSet.forEach(r => { if (counts[r.face] !== undefined) counts[r.face]++; });
+  return counts;
+}
+
+function chiSquare(counts, n) {
+  const expected = n / 20;
+  let chi2 = 0;
+  for (let i = 1; i <= 20; i++) {
+    chi2 += Math.pow(counts[i] - expected, 2) / expected;
+  }
+  return chi2;
+}
+
+// Chi-square p-value approximation for df=19 using the regularized incomplete gamma function
+function chi2pValue(chi2, df) {
+  // Use Wilson-Hilferty approximation for large df
+  const z = Math.pow(chi2 / df, 1/3) - (1 - 2 / (9 * df));
+  const denom = Math.sqrt(2 / (9 * df));
+  const zScore = z / denom;
+  // Convert z-score to p-value (upper tail)
+  return 1 - normalCDF(zScore);
+}
+
+function normalCDF(z) {
+  // Abramowitz & Stegun approximation
+  if (z < -8) return 0;
+  if (z > 8) return 1;
+  let sum = 0, term = z;
+  for (let i = 3; sum + term !== sum; i += 2) {
+    sum += term;
+    term *= z * z / i;
+  }
+  return 0.5 + sum * Math.exp(-z * z / 2 - 0.91893853320467274178);
+}
+
+function getVerdict(pValue, n) {
+  if (n < 20) return { cls: '', text: 'Need more rolls (minimum 20)', detail: '' };
+  if (n < 100) {
+    return { cls: 'suspect', text: '⚠ Not enough data for reliable analysis', detail: 'At least 100 rolls recommended for meaningful results. Current p-value is preliminary.' };
+  }
+  if (pValue > 0.05) return { cls: 'fair', text: '✓ This die appears FAIR', detail: 'No statistically significant deviation from uniform distribution at the 95% confidence level.' };
+  if (pValue > 0.01) return { cls: 'suspect', text: '⚠ SUSPICIOUS — possible bias detected', detail: 'The distribution shows deviation from expected at the 95% level, but not at the 99% level. Could be real bias or natural variance. More rolls will clarify.' };
+  return { cls: 'biased', text: '✗ LIKELY BIASED', detail: 'Statistically significant deviation from uniform distribution at the 99% confidence level. This die may have a manufacturing defect or weighting issue.' };
+}
+
+// ===== UPDATE UI =====
+function updateAll() {
+  const filtered = histFilter === 'all' ? rolls : rolls.filter(r => r.method === histFilter);
+  const n = filtered.length;
+  const counts = getCounts(filtered);
+
+  // Stats strip
+  document.getElementById('totalRolls').textContent = rolls.length;
+  if (n > 0) {
+    const sum = filtered.reduce((s, r) => s + r.face, 0);
+    const mean = sum / n;
+    const variance = filtered.reduce((s, r) => s + Math.pow(r.face - mean, 2), 0) / n;
+    const sd = Math.sqrt(variance);
+    document.getElementById('meanValue').textContent = mean.toFixed(2);
+    document.getElementById('stdDev').textContent = sd.toFixed(2);
+
+    let maxCount = 0, minCount = Infinity, maxFace = 0, minFace = 0;
+    for (let i = 1; i <= 20; i++) {
+      if (counts[i] > maxCount) { maxCount = counts[i]; maxFace = i; }
+      if (counts[i] < minCount) { minCount = counts[i]; minFace = i; }
+    }
+    document.getElementById('modeValue').textContent = maxFace + ' (' + maxCount + '×)';
+    document.getElementById('leastValue').textContent = minFace + ' (' + minCount + '×)';
+  }
+
+  // Histogram
+  updateHistogram(counts, n);
+
+  // Chi-square analysis
+  updateAnalysis(counts, n);
+
+  // Per-method breakdown
+  updateMethodBreakdown();
+
+  // Roll log
+  updateLog();
+}
+
+function updateHistogram(counts, n) {
+  const grid = document.getElementById('histogramGrid');
+  const expected = n / 20;
+  const maxCount = Math.max(...Object.values(counts), 1);
+  const barAreaHeight = 180; // px
+
+  let html = '';
+  // Expected line
+  if (n > 0) {
+    const expectedPx = (expected / maxCount) * barAreaHeight;
+    html += '<div class="expected-line" style="bottom:' + (27 + expectedPx) + 'px"><span class="expected-label">expected: ' + expected.toFixed(1) + '</span></div>';
+  }
+  for (let i = 1; i <= 20; i++) {
+    const count = counts[i];
+    const heightPx = n > 0 ? (count / maxCount) * barAreaHeight : 0;
+    let cls = '';
+    if (n >= 20) {
+      const deviation = (count - expected) / Math.sqrt(expected);
+      if (deviation > 1.5) cls = ' over';
+      else if (deviation < -1.5) cls = ' under';
+    }
+    html += '<div class="hist-col">';
+    html += '<div class="hist-bar-wrap"><div class="hist-bar' + cls + '" style="height:' + heightPx + 'px">';
+    if (count > 0) html += '<span class="bar-count">' + count + '</span>';
+    html += '</div></div>';
+    html += '<div class="hist-face">' + i + '</div>';
+    html += '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+function updateAnalysis(counts, n) {
+  const el = document.getElementById('analysisContent');
+  if (n < 20) {
+    el.innerHTML = '<div style="padding:20px;color:var(--text-dim)">Roll at least 20 times to begin analysis. (' + n + '/20)</div>';
+    return;
+  }
+
+  const chi2 = chiSquare(counts, n);
+  const pValue = chi2pValue(chi2, 19);
+  const verdict = getVerdict(pValue, n);
+
+  let html = '';
+  html += '<div class="verdict ' + verdict.cls + '">' + verdict.text + '</div>';
+  html += '<div class="analysis-detail">';
+  html += 'Chi-Square statistic: <strong>' + chi2.toFixed(3) + '</strong> (df = 19)<br>';
+  html += 'p-value: <strong>' + (pValue < 0.001 ? pValue.toExponential(3) : pValue.toFixed(4)) + '</strong><br>';
+  html += 'Critical value at 95%: 30.144 · at 99%: 36.191<br>';
+  if (verdict.detail) html += '<br><em>' + verdict.detail + '</em>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function updateMethodBreakdown() {
+  const el = document.getElementById('methodBreakdown');
+  const methods = ['tower', 'drop', 'hand'];
+  const hasData = methods.some(m => rolls.filter(r => r.method === m).length > 0);
+  if (!hasData) { el.innerHTML = '<div style="padding:10px;color:var(--text-dim)">No rolls yet.</div>'; return; }
+
+  let html = '<table class="method-table"><thead><tr>';
+  html += '<th>Method</th><th>Rolls</th><th>Mean</th><th>χ²</th><th>p-value</th><th>Verdict</th>';
+  html += '</tr></thead><tbody>';
+  for (const m of methods) {
+    const subset = rolls.filter(r => r.method === m);
+    const n = subset.length;
+    if (n === 0) {
+      html += '<tr><td>' + METHOD_LABELS[m] + '</td><td>0</td><td colspan="4" style="color:var(--text-dim)">—</td></tr>';
+      continue;
+    }
+    const mean = (subset.reduce((s, r) => s + r.face, 0) / n).toFixed(2);
+    const counts = getCounts(subset);
+    let chi2str = '—', pstr = '—', vstr = '—';
+    if (n >= 20) {
+      const chi2 = chiSquare(counts, n);
+      const pVal = chi2pValue(chi2, 19);
+      chi2str = chi2.toFixed(2);
+      pstr = pVal < 0.001 ? pVal.toExponential(2) : pVal.toFixed(3);
+      if (n >= 100) {
+        vstr = pVal > 0.05 ? '<span style="color:var(--green)">Fair</span>' : pVal > 0.01 ? '<span style="color:#ffc107">Suspect</span>' : '<span style="color:var(--red)">Biased</span>';
+      } else {
+        vstr = '<span style="color:var(--text-dim)">Need 100+</span>';
+      }
+    }
+    html += '<tr><td>' + METHOD_LABELS[m] + '</td><td>' + n + '</td><td>' + mean + '</td><td>' + chi2str + '</td><td>' + pstr + '</td><td>' + vstr + '</td></tr>';
+  }
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+function updateLog() {
+  const el = document.getElementById('logEntries');
+  document.getElementById('logCount').textContent = rolls.length + ' rolls';
+  if (rolls.length === 0) {
+    el.innerHTML = '<div style="text-align:center;color:var(--text-dim);padding:20px;font-size:0.7rem">Waiting for rolls…</div>';
+    return;
+  }
+  // Show most recent 200
+  const recent = rolls.slice(-200).reverse();
+  let html = '';
+  for (let i = 0; i < recent.length; i++) {
+    const r = recent[i];
+    const num = rolls.length - i;
+    const time = r.timestamp.toLocaleTimeString();
+    html += '<div class="log-entry">';
+    html += '<span class="log-num">#' + num + '</span>';
+    html += '<span class="log-face">' + r.face + '</span>';
+    html += '<span class="log-method">' + METHOD_LABELS[r.method] + '</span>';
+    html += '<span class="log-time">' + time + '</span>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// ===== ACTIONS =====
+function exportCSV() {
+  if (rolls.length === 0) { alert('No rolls to export.'); return; }
+  let csv = 'Roll #,Face,Method,Timestamp\n';
+  rolls.forEach((r, i) => {
+    csv += (i + 1) + ',' + r.face + ',' + METHOD_LABELS[r.method] + ',' + r.timestamp.toISOString() + '\n';
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'pixels_roll_analysis_' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function clearAll() {
+  if (rolls.length === 0) return;
+  if (!confirm('Clear all ' + rolls.length + ' rolls? This cannot be undone.')) return;
+  rolls = [];
+  saveRolls();
+  histFilter = 'all';
+  document.getElementById('histFilterLabel').textContent = '(all methods)';
+  document.getElementById('meanValue').textContent = '—';
+  document.getElementById('stdDev').textContent = '—';
+  document.getElementById('modeValue').textContent = '—';
+  document.getElementById('leastValue').textContent = '—';
+  document.getElementById('lastRoll').textContent = '—';
+  updateAll();
+}
+
+// ===== INIT =====
+updateAll();
+</script>
+</body>
+</html>
